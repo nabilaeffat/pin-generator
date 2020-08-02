@@ -56,22 +56,23 @@
     </div>
     <script>
         // Generate Pin button event handler
-        var attempts = 3;
+        // attempts variable count user attempts
+        var attempts = 3; 
         const generatePinBtn = document.getElementById("generatePin");
+
         generatePinBtn.addEventListener("click", function(){
             const randomPin = Math.floor(1000 + Math.random() * 9000);
             document.getElementById("pin").value = randomPin;
-            console.log(randomPin);
+            document.getElementById("matchedTrue").style.display = 'none';
             reset();
-
         })
+
         // keypad button event handler
         const keypad = document.querySelectorAll('.button');
 
         keypad.forEach(button => {
             button.addEventListener('click', () => {
             if (button.innerText == 'C'){
-                //document.getElementById("userInput").value = ""; 
                 clear("userInput");
             }
             else if(button.innerText == '<'){
@@ -91,46 +92,35 @@
         const submit = document.getElementById("submitBtn");
         submit.addEventListener("click", function(){
             if (document.getElementById("pin").value == document.getElementById("userInput").value ){
-                displayNotification("matchedTrue", "matchedFalse")
-                attempts = 3;
-                //clear("pin");
-                //clear("userInput");
-                console.log("matchedTrue");
-                
+            document.getElementById("matchedFalse").style.display = 'none';
+            document.getElementById("matchedTrue").style.display = 'block';
+            reset();
             }
             else {
                 attempts--;
-                displayNotification("matchedFalse","matchedTrue")
+                document.getElementById("matchedFalse").style.display = 'block';
+                document.getElementById("matchedTrue").style.display = 'none';
                 if(attempts == 0){
                     submit.disabled = true;
+                    submit.style.backgroundColor="#425062";
                     clear("userInput");
                 } 
-                console.log("matchedFalse");
                 document.getElementById("count").innerHTML = attempts;
-                console.log(attempts);
-
             }
             
         })
-    
-       
-
-        //display notification 
-        function displayNotification(displayID, hideID){
-            document.getElementById(hideID).style.display = 'none';
-            document.getElementById(displayID).style.display = 'block';
-        }
-
+     
         function clear(id){
             document.getElementById(id).value = ""; 
         }
+
         function reset(){
             attempts = 3;
             clear("userInput");
             submit.disabled = false;
             document.getElementById("count").innerHTML = attempts;
             document.getElementById("matchedFalse").style.display = 'none';
-            document.getElementById("matchedFalse").style.display = 'none';
+            submit.style.backgroundColor="#495BC3";
         }
 
 
