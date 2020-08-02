@@ -91,23 +91,25 @@
         //Submit button event handler
         const submit = document.getElementById("submitBtn");
         submit.addEventListener("click", function(){
-            if (document.getElementById("pin").value == document.getElementById("userInput").value ){
-            document.getElementById("matchedFalse").style.display = 'none';
-            document.getElementById("matchedTrue").style.display = 'block';
-            reset();
+            if(document.getElementById("pin").value != ""){
+                if (document.getElementById("pin").value == document.getElementById("userInput").value ){
+                document.getElementById("matchedFalse").style.display = 'none';
+                document.getElementById("matchedTrue").style.display = 'block';
+                reset();
+                }
+                else {
+                    attempts--;
+                    document.getElementById("matchedFalse").style.display = 'block';
+                    document.getElementById("matchedTrue").style.display = 'none';
+                    if(attempts == 0){
+                        submit.disabled = true;
+                        submit.style.backgroundColor="#425062";
+                        clear("userInput");
+                    } 
+                    document.getElementById("count").innerHTML = attempts;
+                }
             }
-            else {
-                attempts--;
-                document.getElementById("matchedFalse").style.display = 'block';
-                document.getElementById("matchedTrue").style.display = 'none';
-                if(attempts == 0){
-                    submit.disabled = true;
-                    submit.style.backgroundColor="#425062";
-                    clear("userInput");
-                } 
-                document.getElementById("count").innerHTML = attempts;
-            }
-            
+   
         })
      
         function clear(id){
